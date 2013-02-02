@@ -1,3 +1,32 @@
+
+== Goal ==
+Wanted to take a piece of python that I did not write and see how long it would take me to port the critical sections to cython.
+I slightly restructed the very-procedural code into something more functional.
+
+In this case profiling identified the function I've named i4_sobol0 as the most critical section.
+
+== Profiling snapshot ==
+The below stats are for a 20-Dimensional sequence of 1M points.
+
+Original 
+
+9004449 function calls in 178.842 seconds
+Ordered by: internal time
+ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+1000000  170.658    0.000  174.813    0.000 sobol_seq.py:132(i4_sobol)
+
+
+Altered
+2000053 function calls in 98.834 seconds
+Ordered by: internal time
+ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+1000000   90.998    0.000   90.998    0.000 csobol_seq.pyx:144(i4_sobol0)
+
+
+
+
+
+== Original Readme ==
 Cleaned up version of John Burkardt and Corrado Chisari's python sobol sequence
 implementation. 
 Original version is available from
